@@ -1,0 +1,134 @@
+class Main {
+    static int px, py, u;
+        
+    function int cosseno(int angulo) {
+        if (angulo = 0) {return 10;}
+        if (angulo = 1) {return 7;}
+        if (angulo = 2) {return 0;}
+        if (angulo = 3) {return -7;}
+        if (angulo = 4) {return -10;}
+        if (angulo = 5) {return -7;}
+        if (angulo = 6) {return 0;}
+        if (angulo = 7) {return 7;}
+        return -1;
+    }
+
+    function int seno(int angulo) {
+        if (angulo = 0) {return 0;}
+        if (angulo = 1) {return 7;}
+        if (angulo = 2) {return 10;}
+        if (angulo = 3) {return 7;}
+        if (angulo = 4) {return 0;}
+        if (angulo = 5) {return -7;}
+        if (angulo = 6) {return -10;}
+        if (angulo = 7) {return -7;}
+        return -1;
+    }
+
+    function void linha(int angulo, int tam) {
+        var int xf, yf, dx, dy, x1, x2, y1, y2; 
+        let dx = tam * Main.cosseno(angulo)/10;
+        let dy = tam * Main.seno(angulo)/10;
+        let xf = px + dx;
+        let yf = py + dy;
+        let x2 = xf - 1;
+        let y2 = 255 - yf;
+        let x1 = px - 1;
+        let y1 = 255 - py; /*transformação da origem*/
+        do Screen.drawLine(x1,y1,x2,y2);
+        let px = xf;
+        let py = yf;
+        return;
+    }
+
+    function void a(int i){
+        if (i > 0)
+            {
+                do Main.d(i-1);
+                do Main.linha(4,u);
+                do Main.a(i-1);
+                do Main.linha(6,u);
+                do Main.a(i-1);
+                do Main.linha(0,u);
+                do Main.b(i-1);
+            }
+        return;
+    }
+
+    function void b(int i){
+        if (i > 0)
+            {
+                do Main.c(i-1);
+                do Main.linha(2,u);
+                do Main.b(i-1);
+                do Main.linha(0,u);
+                do Main.b(i-1);
+                do Main.linha(6,u);
+                do Main.a(i-1);
+            }
+        return;
+    }
+
+    function void c(int i){
+        if (i > 0)
+            {
+                do Main.b(i-1);
+                do Main.linha(0,u);
+                do Main.c(i-1);
+                do Main.linha(2,u);
+                do Main.c(i-1);
+                do Main.linha(4,u);
+                do Main.d(i-1);
+            }
+        return;
+    }
+    function void d(int i){
+        if (i > 0)
+            {
+                do Main.a(i-1);
+                do Main.linha(6,u);
+                do Main.d(i-1);
+                do Main.linha(4,u);
+                do Main.d(i-1);
+                do Main.linha(2,u);
+                do Main.c(i-1);
+            }
+        return;
+    }
+
+    function void main() {
+        var int x0, y0, i;
+        var char k;
+        let x0 = 256;
+        let y0 = 128;
+        let u = 256;
+        let i = 0;
+        do Output.printString("Curvas de Hilbert");
+        do Output.println();
+        do Output.printString("Elementos de Sistemas Computacionais");
+        do Output.println();
+        do Output.println();
+        do Output.printString("Giovanna Mendes de Sousa Rodrigues");
+        do Output.println();
+        do Output.printString("11911ECP014");
+        do Output.println();
+        let k = Keyboard.readChar();
+        do Screen.clearScreen();
+        while (~(i = 8)) {
+            let i = i+1;
+            let u = Math.divide(u,2);
+            let x0 = x0 + Math.divide(u,2);
+            let y0 = y0 + Math.divide(u,2);
+            let px = x0;
+            let py = y0;
+            do Main.a(i);
+            let k = Keyboard.readChar();
+        }
+        do Screen.clearScreen();
+        do Output.printString("Fim!");
+        do Output.println();
+        let k = Keyboard.readChar();
+        return;
+    }
+
+}
